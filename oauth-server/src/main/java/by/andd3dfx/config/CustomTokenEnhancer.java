@@ -1,4 +1,4 @@
-package by.andd3dfx;
+package by.andd3dfx.config;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
