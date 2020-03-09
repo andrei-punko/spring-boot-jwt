@@ -3,3 +3,6 @@
  */
 
 rootProject.name = 'springboot-jwt'
+include 'oauth-server'
+include 'resource-server'
+
