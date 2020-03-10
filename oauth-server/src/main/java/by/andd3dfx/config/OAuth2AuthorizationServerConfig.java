@@ -29,17 +29,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Value("${security.jwt.grant-types}")
     private String[] grantTypes;
 
-    @Value("${security.jwt.scope-read}")
-    private String scopeRead;
-
-    @Value("${security.jwt.scope-write}")
-    private String scopeWrite;
+    @Value("${security.jwt.scopes}")
+    private String scopes;
 
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
-
-    @Value("${security.signing-key}")
-    private String signingKey;
 
     @Autowired
     private TokenStore tokenStore;
@@ -63,7 +57,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
             .withClient(clientId)
             .secret(passwordEncoder.encode(clientSecret))
             .authorizedGrantTypes(grantTypes)
-            .scopes(scopeRead, scopeWrite, "foo")
+            .scopes(scopes)
             .resourceIds(resourceIds);
     }
 
