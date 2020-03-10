@@ -42,16 +42,63 @@ curl testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=pass
 curl testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=admin.admin -d password=jwtpass
 ```
 
-You'll receive a responses similar to below
+You'll receive responses similar to below
 
 ```json
-    {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNDk0NDU0MjgyLCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiIwYmQ4ZTQ1MC03ZjVjLTQ5ZjMtOTFmMC01Nzc1YjdiY2MwMGYiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.rvEAa4dIz8hT8uxzfjkEJKG982Ree5PdUW17KtFyeec",
-      "token_type": "bearer",
-      "expires_in": 43199,
-      "scope": "read write",
-      "jti": "0bd8e450-7f5c-49f3-91f0-5775b7bcc00f"
-    }
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJmb28iXSwiZXhwIjoxNTgzODY4MjkwLCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiIzYzdmYmM3Ni1mM2VhLTRkYTAtYmRlOC1jYTFlNWY0MzYxMzUiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.ki0W0_jLX4RqhnqTIdBg1j14yfJOyeipHH9W_7d-WTA",
+    "token_type": "bearer",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJmb28iXSwiYXRpIjoiM2M3ZmJjNzYtZjNlYS00ZGEwLWJkZTgtY2ExZTVmNDM2MTM1IiwiZXhwIjoxNTg2NDE3MDkwLCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiIwMzQyYzJmOC05MDI0LTQxNzItYWZjZC0wZDhhZjJkMjIxYzQiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.wEg_JSEn97KulZVbqd2gq-7piacX6JZ_KOilIy0W_Pk",
+    "expires_in": 43199,
+    "scope": "read write foo",
+    "jti": "3c7fbc76-f3ea-4da0-bde8-ca1e5f436135"
+}
+```
+
+### Check existing token
+
+To check existing token use:
+```bash
+curl -X POST client:secret@localhost:9090/oauth/check_token?token=TOKEN_HERE
+```
+
+You'll receive a response similar to below
+```json
+{
+    "aud": ["testjwtresourceid"],
+    "user_name": "admin.admin",
+    "scope": ["read", "write", "foo"],
+    "exp": 1583866486,
+    "authorities": ["STANDARD_USER", "ADMIN_USER"],
+    "jti": "6b4ebc1b-ea20-4f5a-a0a4-280f48ce41cc",
+    "client_id": "testjwtclientid"
+}
+```
+or next
+```json
+{
+    "error": "invalid_token",
+    "error_description": "Encoded token is a refresh token"
+}
+```
+
+### Get new token pair using refresh token
+
+To get new token pair using existing refresh token use:
+```bash
+curl -X POST -d refresh_token=REFRESH_TOKEN_HERE -d grant_type=refresh_token client:secret@localhost:9090/oauth/token
+```
+
+You'll receive a response similar to below
+```json
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJmb28iXSwiZXhwIjoxNTgzODcwMjg5LCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiI2OTVmZmVmMi01YzQ1LTRmNTAtYmJhNy1kZTMyMWY3OWM5NjUiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.1aB-ke4dLX1_AdBGzVPtWcG9oOEt3Gptsyz8MrSEp0I",
+    "token_type": "bearer",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJmb28iXSwiYXRpIjoiNjk1ZmZlZjItNWM0NS00ZjUwLWJiYTctZGUzMjFmNzljOTY1IiwiZXhwIjoxNTg2NDE4Mzg0LCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiJjYTNjN2VkMS0wYmE4LTRhMDUtYTUwZC0wNzNkZmMyN2M0YzIiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.hXv1I-t1u_eZ3JSv-3tHSkaTzfXb-jRHG3W5sNIfIoc",
+    "expires_in": 43199,
+    "scope": "read write foo",
+    "jti": "695ffef2-5c45-4f50-bba7-de321f79c965"
+}
 ```
 
 ### Use tokens to access resources through your RESTful API
@@ -59,13 +106,11 @@ You'll receive a responses similar to below
 #### Access content available for all authenticated users:
 
 Use the generated tokens as the value of the Bearer in the Authorization header as follows:
-
 ```bash
-curl http://localhost:9091/foos/1 -H "Authorization: Bearer TOKEN_HERE"
+curl http://localhost:9091/foos/1 -H "Authorization: Bearer ACCESS_TOKEN_HERE"
 ```
 
 The response will be:
-
 ```json
 {
     "id": 68,
@@ -76,11 +121,10 @@ The response will be:
 #### Access content available only for an admin user:
 
 ```bash
-curl http://localhost:9091/cities -H "Authorization: Bearer TOKEN_HERE"
+curl http://localhost:9091/cities -H "Authorization: Bearer ACCESS_TOKEN_HERE"
 ```
 
 The result will be:
-
 ```json
 [{
         "id": 1,

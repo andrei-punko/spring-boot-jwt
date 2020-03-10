@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -25,8 +26,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Value("${security.jwt.client-secret}")
     private String clientSecret;
 
-    @Value("${security.jwt.grant-type}")
-    private String grantType;
+    @Value("${security.jwt.grant-types}")
+    private String[] grantTypes;
 
     @Value("${security.jwt.scope-read}")
     private String scopeRead;
@@ -52,13 +53,16 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserDetailsService appUserDetailsService;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
             .inMemory()
             .withClient(clientId)
             .secret(passwordEncoder.encode(clientSecret))
-            .authorizedGrantTypes(grantType)
+            .authorizedGrantTypes(grantTypes)
             .scopes(scopeRead, scopeWrite, "foo")
             .resourceIds(resourceIds);
     }
@@ -70,7 +74,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         endpoints.tokenStore(tokenStore)
             .accessTokenConverter(accessTokenConverter)
             .tokenEnhancer(enhancerChain)
-            .authenticationManager(authenticationManager);
+            .authenticationManager(authenticationManager)
+            .userDetailsService(appUserDetailsService);
     }
 
     @Override
