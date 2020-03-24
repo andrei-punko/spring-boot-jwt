@@ -50,6 +50,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     UserDetailsService appUserDetailsService;
 
+    @Autowired
+    private CustomTokenEnhancer customTokenEnhancer;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
@@ -64,7 +67,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        enhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer, accessTokenConverter));
         endpoints.tokenStore(tokenStore)
             .accessTokenConverter(accessTokenConverter)
             .tokenEnhancer(enhancerChain)
