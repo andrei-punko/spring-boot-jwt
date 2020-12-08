@@ -6,15 +6,30 @@
  * JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
  * H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most cases. Go to www.h2database.com to learn more
 
+## How to build:
+    ./gradlew build
+
+## How to build Docker image with oauth-service application inside:
+    cd oauth-server
+    docker build ./ -t oauth-service-app
+    cd..
+
+## How to build Docker image with oauth-service application inside:
+    cd resource-server
+    docker build ./ -t resource-service-app
+    cd..
+
 ## To run the application
 
 ```bash
-./gradlew build
 java -jar ./oauth-server/build/libs/oauth-server-0.0.1-SNAPSHOT.jar
 java -jar ./resource-server/build/libs/resource-server-0.0.1-SNAPSHOT.jar
 ```
 
 Or import the project into your IDE and run `AuthServerApplication` & `ResourceServerApplication` from there.
+
+Or use docker compose:  
+`docker-compose up`
 
 ## To test the application
 

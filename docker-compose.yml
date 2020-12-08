@@ -1,0 +1,19 @@
+version: "3"
+services:
+  oauth-service:
+    image: oauth-service-app:latest
+    network_mode: bridge
+    container_name: oauth-service
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+
+  resource-service:
+    image: resource-service-app:latest
+    network_mode: bridge
+    container_name: resource-service
+    expose:
+      - 9091
+    ports:
+      - 9091:9090
