@@ -42,7 +42,7 @@ Or use docker compose:
  * Example of resource accessible to all authenticated users: http://localhost:9091/foo/123 (any number here)
  * Example of resource accessible to only an admin user: http://localhost:9091/cities
 
-### Generate an access token
+### Generate access token
 
 Use the following generic command to generate an access token:
 

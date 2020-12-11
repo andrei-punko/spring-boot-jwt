@@ -24,6 +24,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Value("${security.jwt.client-secret}")
     private String clientSecret;
 
+    @Value("${security.jwt.check-token-endpoint-url}")
+    private String checkTokenEndpointUrl;
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(resourceIds).tokenServices(tokenServices());
@@ -33,7 +36,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public RemoteTokenServices tokenServices() {
         RemoteTokenServices tokenService = new RemoteTokenServices();
-        tokenService.setCheckTokenEndpointUrl("http://localhost:9090/oauth/check_token");
+        tokenService.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
         tokenService.setClientId(clientId);
         tokenService.setClientSecret(clientSecret);
         return tokenService;
