@@ -47,14 +47,14 @@ Or use docker compose:
 Use the following generic command to generate an access token:
 
 ```bash
-curl client:secret@localhost:9090/oauth/token -d grant_type=password -d username=user -d password=pwd
+curl -X POST client:secret@localhost:9090/oauth/token -d grant_type=password -d username=user -d password=pwd
 ```
 
 For this specific application, to generate an access token for the non-admin user john.doe, run:
 
 ```bash
-curl testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=john.doe -d password=jwtpass
-curl testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=admin.admin -d password=jwtpass
+curl -X POST testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=john.doe -d password=jwtpass
+curl -X POST testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=admin.admin -d password=jwtpass
 ```
 
 You'll receive responses similar to below
