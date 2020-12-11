@@ -1,19 +1,15 @@
 version: "3"
 services:
-  oauth-service:
+  oauth:
     image: oauth-service-app:latest
-    network_mode: bridge
     container_name: oauth-service
-    expose:
-      - 9090
     ports:
       - 9090:9090
 
-  resource-service:
+  resource:
     image: resource-service-app:latest
-    network_mode: bridge
     container_name: resource-service
-    expose:
-      - 9091
     ports:
       - 9091:9091
+    environment:
+      - security.jwt.check-token-endpoint-url=http://oauth:9090/oauth/check_token

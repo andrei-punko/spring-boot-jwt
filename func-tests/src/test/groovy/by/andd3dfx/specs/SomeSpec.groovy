@@ -1,6 +1,5 @@
 package by.andd3dfx.specs
 
-import spock.lang.Ignore
 import spock.lang.Specification
 
 import static by.andd3dfx.configs.Configuration.authRestClient
@@ -100,7 +99,6 @@ class SomeSpec extends Specification {
         )
     }
 
-    @Ignore('Need to determine why it failing')
     def 'Get access to resource using token'() {
         when: 'generate token'
         def authResponse = generateToken()
