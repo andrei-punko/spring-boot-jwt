@@ -1,6 +1,8 @@
 
 # An example of Spring Boot application for securing a REST API with JSON Web Token (JWT)
 ![Java CI with Gradle](https://github.com/andrei-punko/springboot-jwt/workflows/Java%20CI%20with%20Gradle/badge.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/springboot-jwt/actions/workflows/gradle.yml)
+[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/springboot-jwt/actions/workflows/gradle.yml)
 
 ## Main building blocks
  * Spring Boot 2.2.5.RELEASE go to http://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/ to learn more about spring boot
