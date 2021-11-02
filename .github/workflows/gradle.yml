@@ -24,13 +24,14 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    - name: Create aggregated JaCoCo coverage report
+      run: ./gradlew jacocoAggregatedReport
+
     - name: Generate JaCoCo Badge
       uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
-        jacoco-csv-file: >
-          oauth-server/build/reports/jacoco/test/jacocoTestReport.csv
-          resource-server/build/reports/jacoco/test/jacocoTestReport.csv
+        jacoco-csv-file: build/reports/jacoco/jacocoAggregatedReport/jacocoAggregatedReport.csv
 
     - name: Commit the badge (if it changed)
       run: |
@@ -46,6 +47,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: jacoco-report
-        path: >
-          oauth-server/build/reports/jacoco/test/html/
-          resource-server/build/reports/jacoco/test/html/
+        path: build/reports/jacoco/jacocoAggregatedReport/html/
