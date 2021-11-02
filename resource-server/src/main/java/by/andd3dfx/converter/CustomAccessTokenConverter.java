@@ -1,4 +1,4 @@
-package by.andd3dfx.config;
+package by.andd3dfx.converter;
 
 import java.util.Map;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
