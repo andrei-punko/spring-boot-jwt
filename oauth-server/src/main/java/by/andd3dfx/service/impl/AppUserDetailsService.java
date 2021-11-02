@@ -26,7 +26,7 @@ public class AppUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(s);
 
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", s));
+            throw new UsernameNotFoundException(String.format("The username=%s doesn't exist", s));
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
