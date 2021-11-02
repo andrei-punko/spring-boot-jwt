@@ -23,28 +23,8 @@ lib/dokka.jar
 
 *.iml
 
-## Directory-based project format:
-#.idea
-
-# if you remove the above rule, at least ignore the following:
-
-# Specific files to avoid churn
-.idea/*.xml
-.idea/copyright
-.idea/jsLibraryMappings.xml
-.idea/$PRODUCT_WORKSPACE_FILE$
-.idea/codeStyles
-
-# User-specific stuff:
-.idea/tasks.xml
-.idea/dictionaries
-
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
+## IDEA stuff
+.idea
 
 # Gradle:
 .idea/libraries
