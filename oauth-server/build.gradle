@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version "$spring_boot_version"
+    id 'jacoco'
 }
 
 sourceCompatibility = '1.8'
@@ -30,4 +31,21 @@ dependencies {
 
 springBoot {
     mainClassName = "by.andd3dfx.AuthServerApp"
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    reports {
+        csv.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/config/**',
+                    '**/domain/**',
+            ])
+        }))
+    }
 }
