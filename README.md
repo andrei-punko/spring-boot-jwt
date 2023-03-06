@@ -9,6 +9,10 @@
  * JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
  * H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most cases. Go to www.h2database.com to learn more
 
+## Prerequisites:
+- JDK 11
+- Maven 3
+
 ## How to build:
     ./gradlew build
 
@@ -31,8 +35,10 @@ java -jar ./resource-server/build/libs/resource-server-0.0.1-SNAPSHOT.jar
 
 Or import the project into your IDE and run `AuthServerApplication` & `ResourceServerApplication` from there.
 
-Or use docker compose:  
-`docker-compose up`
+Or use docker compose:
+```shell
+docker-compose up
+```
 
 ## To test the application
 
