@@ -10,8 +10,8 @@
  * H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most cases. Go to www.h2database.com to learn more
 
 ## Prerequisites:
-- JDK 11
 - Maven 3
+- JDK 17
 
 ## How to build:
     ./gradlew build

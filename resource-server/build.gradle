@@ -4,7 +4,7 @@ plugins {
     id 'jacoco'
 }
 
-sourceCompatibility = 11
+sourceCompatibility = 17
 
 dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
@@ -16,14 +16,12 @@ dependencies {
     implementation 'org.springframework.security.oauth:spring-security-oauth2:2.1.0.RELEASE'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 
-    // JAX-B dependencies for JDK 9+
-    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
-    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
-
     runtimeOnly "org.springframework.boot:spring-boot-devtools:$spring_boot_version"
     runtimeOnly 'com.h2database:h2:1.4.197'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$spring_boot_version"
+    testCompileOnly "junit:junit:$junit4_version"
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.1'
 }
 
 springBoot {
@@ -35,7 +33,7 @@ test {
 }
 jacocoTestReport {
     reports {
-        csv.enabled true
+        csv.required = true
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
