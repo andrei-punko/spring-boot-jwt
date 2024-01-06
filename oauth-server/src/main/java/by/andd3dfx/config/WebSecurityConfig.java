@@ -44,10 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .httpBasic()
-            .realmName(securityRealm)
-            .and()
-            .csrf()
-            .disable();
+            .realmName(securityRealm);
     }
 
     @Bean
