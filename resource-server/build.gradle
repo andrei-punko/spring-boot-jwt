@@ -4,7 +4,7 @@ plugins {
     id 'jacoco'
 }
 
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
