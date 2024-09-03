@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21-jdk-slim
 VOLUME /tmp
 EXPOSE 9091
 RUN mkdir -p /app/
