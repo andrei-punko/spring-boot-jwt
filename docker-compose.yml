@@ -4,12 +4,12 @@ services:
     image: oauth-service-app:latest
     container_name: oauth-service
     ports:
-      - 9090:9090
+      - "9090:9090"
 
   resource:
     image: resource-service-app:latest
     container_name: resource-service
     ports:
-      - 9091:9091
+      - "9091:9091"
     environment:
       - security.jwt.check-token-endpoint-url=http://oauth:9090/oauth/check_token

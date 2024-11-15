@@ -1,11 +1,11 @@
 
 # An example of Spring Boot application for securing a REST API with JSON Web Token (JWT)
-![Java CI with Gradle](https://github.com/andrei-punko/springboot-jwt/workflows/Java%20CI%20with%20Gradle/badge.svg)
-[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/springboot-jwt/actions/workflows/gradle.yml)
-[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/springboot-jwt/actions/workflows/gradle.yml)
+![Java CI with Gradle](https://github.com/andrei-punko/spring-boot-jwt/workflows/Java%20CI%20with%20Gradle/badge.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-jwt/actions/workflows/gradle.yml)
+[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-jwt/actions/workflows/gradle.yml)
 
 ## Main building blocks
- * Spring Boot 2.2.5.RELEASE go to http://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/ to learn more about spring boot
+ * Spring Boot 2.5.15 go to https://docs.spring.io/spring-boot/docs/2.5.15/reference/htmlsingle/ to learn more about spring boot
  * JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
  * H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most cases. Go to www.h2database.com to learn more
 
