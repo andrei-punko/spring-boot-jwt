@@ -1,27 +1,34 @@
-
 # An example of Spring Boot application for securing a REST API with JSON Web Token (JWT)
+
 ![Java CI with Gradle](https://github.com/andrei-punko/spring-boot-jwt/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-jwt/actions/workflows/gradle.yml)
 [![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-jwt/actions/workflows/gradle.yml)
 
 ## Main building blocks
- * Spring Boot 2.5.15 go to https://docs.spring.io/spring-boot/docs/2.5.15/reference/htmlsingle/ to learn more about spring boot
- * JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
- * H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most cases. Go to www.h2database.com to learn more
+
+* Spring Boot 2.5.15 go to https://docs.spring.io/spring-boot/docs/2.5.15/reference/htmlsingle/ to learn more about
+  spring boot
+* JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
+* H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most
+  cases. Go to www.h2database.com to learn more
 
 ## Prerequisites:
+
 - Maven 3
 - JDK 21
 
 ## How to build:
+
     ./gradlew build
 
 ## How to build Docker image with oauth-service application inside:
+
     cd oauth-server
     docker build ./ -t oauth-service-app
     cd..
 
 ## How to build Docker image with oauth-service application inside:
+
     cd resource-server
     docker build ./ -t resource-service-app
     cd..
@@ -36,6 +43,7 @@ java -jar ./resource-server/build/libs/resource-server-0.0.1-SNAPSHOT.jar
 Or import the project into your IDE and run `AuthServerApplication` & `ResourceServerApplication` from there.
 
 Or use docker compose:
+
 ```shell
 docker-compose up
 ```
@@ -44,12 +52,12 @@ docker-compose up
 
 ### First you will need the following basic pieces of information:
 
- * client: `testjwtclientid`
- * secret: `XY7kmzoNzl100`
- * Non-admin username and password: `john.doe` and `jwtpass`
- * Admin user: `admin.admin` and `jwtpass`
- * Example of resource accessible to all authenticated users: http://localhost:9091/foo/123 (any number here)
- * Example of resource accessible to only an admin user: http://localhost:9091/cities
+* client: `testjwtclientid`
+* secret: `XY7kmzoNzl100`
+* Non-admin username and password: `john.doe` and `jwtpass`
+* Admin user: `admin.admin` and `jwtpass`
+* Example of resource accessible to all authenticated users: http://localhost:9091/foo/123 (any number here)
+* Example of resource accessible to only an admin user: http://localhost:9091/cities
 
 ### Generate access token
 
@@ -82,11 +90,13 @@ You'll receive responses similar to below
 ### Check existing token
 
 To check existing token use:
+
 ```bash
 curl -X POST client:secret@localhost:9090/oauth/check_token?token=TOKEN_HERE
 ```
 
 You'll receive a response similar to below
+
 ```json
 {
     "aud": ["testjwtresourceid"],
@@ -98,7 +108,9 @@ You'll receive a response similar to below
     "client_id": "testjwtclientid"
 }
 ```
+
 or next
+
 ```json
 {
     "error": "invalid_token",
@@ -109,11 +121,13 @@ or next
 ### Get new token pair using refresh token
 
 To get new token pair using existing refresh token use:
+
 ```bash
 curl -X POST -d refresh_token=REFRESH_TOKEN_HERE -d grant_type=refresh_token client:secret@localhost:9090/oauth/token
 ```
 
 You'll receive a response similar to below
+
 ```json
 {
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiLCJmb28iXSwiZXhwIjoxNTgzODcwMjg5LCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiI2OTVmZmVmMi01YzQ1LTRmNTAtYmJhNy1kZTMyMWY3OWM5NjUiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.1aB-ke4dLX1_AdBGzVPtWcG9oOEt3Gptsyz8MrSEp0I",
@@ -130,11 +144,13 @@ You'll receive a response similar to below
 #### Access content available for all authenticated users:
 
 Use the generated tokens as the value of the Bearer in the Authorization header as follows:
+
 ```bash
 curl http://localhost:9091/foos/1 -H "Authorization: Bearer ACCESS_TOKEN_HERE"
 ```
 
 The response will be:
+
 ```json
 {
     "id": 68,
@@ -149,6 +165,7 @@ curl http://localhost:9091/cities -H "Authorization: Bearer ACCESS_TOKEN_HERE"
 ```
 
 The result will be:
+
 ```json
 [{
         "id": 1,
