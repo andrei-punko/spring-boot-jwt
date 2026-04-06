@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 @RestController
 public class FooController {
@@ -21,7 +20,7 @@ public class FooController {
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
     @GetMapping("/foos/{id}")
     public Foo findById(@PathVariable long id) {
-        return new Foo(Long.parseLong(randomNumeric(2)), randomAlphabetic(4));
+        return new Foo(id * id, "Name is %d".formatted(id));
     }
 
     @PreAuthorize("hasAuthority('ADMIN_USER')")

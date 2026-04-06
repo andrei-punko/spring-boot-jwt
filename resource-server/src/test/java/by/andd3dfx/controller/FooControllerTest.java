@@ -1,18 +1,14 @@
 package by.andd3dfx.controller;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
 
 import by.andd3dfx.domain.City;
 import by.andd3dfx.domain.Foo;
 import by.andd3dfx.repository.CityRepository;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,7 +29,8 @@ public class FooControllerTest {
     public void findById() {
         Foo result = fooController.findById(ID);
 
-        assertThat(result, notNullValue());
+        assertThat(result.getId(), is(ID * ID));
+        assertThat(result.getName(), is("Name is " + ID));
     }
 
     @Test
