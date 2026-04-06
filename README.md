@@ -1,14 +1,14 @@
-# An example of Spring Boot application for securing a REST API with JSON Web Token (JWT)
+# Spring Boot application example for securing a REST API with JSON Web Token (JWT)
 
 ![Java CI with Gradle](https://github.com/andrei-punko/spring-boot-jwt/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-jwt/actions/workflows/gradle.yml)
 
 ## Main building blocks
 
-* Spring Boot 2.5.15 go to https://docs.spring.io/spring-boot/docs/2.5.15/reference/htmlsingle/ to learn more about
-  spring boot
-* JSON Web Token go to https://jwt.io/ to decode your generated token and learn more
-* H2 Database Engine - used for rapid prototyping and development, but not suitable for production at least in most
+* `Spring Boot 2.5.15` - go to https://docs.spring.io/spring-boot/docs/2.5.15/reference/htmlsingle/ to learn more about
+  Spring Boot
+* `JSON Web Token` - go to https://jwt.io/ to decode your generated token and learn more
+* `H2 Database Engine` - used for rapid prototyping and development, but not suitable for production at least in most
   cases. Go to www.h2database.com to learn more
 
 ## Prerequisites:
@@ -32,24 +32,34 @@
     docker build ./ -t resource-service-app
     cd..
 
+## Build both images using script
+```
+build-docker-images.bat
+```
+
 ## To run the application
 
+Use commands:
 ```bash
 java -jar ./oauth-server/build/libs/oauth-server-0.0.1-SNAPSHOT.jar
 java -jar ./resource-server/build/libs/resource-server-0.0.1-SNAPSHOT.jar
 ```
 
-Or import the project into your IDE and run `AuthServerApplication` & `ResourceServerApplication` from there.
+Or import the project into IDEA and run `AuthServerApplication` & `ResourceServerApplication` from there.
 
-Or use docker compose:
-
+Or use `docker-compose`:
 ```shell
 docker-compose up
 ```
 
+Or use script:
+```
+start-docker-containers.bat
+```
+
 ## To test the application
 
-### First you will need the following basic pieces of information:
+### Firstly you will need the following basic pieces of information:
 
 * client: `testjwtclientid`
 * secret: `XY7kmzoNzl100`
@@ -66,14 +76,17 @@ Use the following generic command to generate an access token:
 curl -X POST client:secret@localhost:9090/oauth/token -d grant_type=password -d username=user -d password=pwd
 ```
 
-For this specific application, to generate an access token for the non-admin user john.doe, run:
-
+For this specific application, to generate an access token for the non-admin user `john.doe`, run:
 ```bash
 curl -X POST testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=john.doe -d password=jwtpass
+```
+
+Or for an `admin` user:
+```bash
 curl -X POST testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token -d grant_type=password -d username=admin.admin -d password=jwtpass
 ```
 
-You'll receive responses similar to below
+You'll receive responses similar to below:
 
 ```json
 {
@@ -89,12 +102,16 @@ You'll receive responses similar to below
 ### Check existing token
 
 To check existing token use:
-
 ```bash
 curl -X POST client:secret@localhost:9090/oauth/check_token?token=TOKEN_HERE
 ```
 
-You'll receive a response similar to below
+For our particular case:
+```bash
+curl -X POST testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/check_token?token=TOKEN_HERE
+```
+
+You'll receive a response similar to below:
 
 ```json
 {
@@ -108,7 +125,7 @@ You'll receive a response similar to below
 }
 ```
 
-or next
+or error like next:
 
 ```json
 {
@@ -125,7 +142,12 @@ To get new token pair using existing refresh token use:
 curl -X POST -d refresh_token=REFRESH_TOKEN_HERE -d grant_type=refresh_token client:secret@localhost:9090/oauth/token
 ```
 
-You'll receive a response similar to below
+For our particular case:
+```bash
+curl -X POST -d refresh_token=REFRESH_TOKEN_HERE -d grant_type=refresh_token testjwtclientid:XY7kmzoNzl100@localhost:9090/oauth/token
+```
+
+You'll receive a response similar to below:
 
 ```json
 {
@@ -157,7 +179,7 @@ The response will be:
 }
 ```
 
-#### Access content available only for an admin user:
+#### Access content available only for an `admin` user:
 
 ```bash
 curl http://localhost:9091/cities -H "Authorization: Bearer ACCESS_TOKEN_HERE"
