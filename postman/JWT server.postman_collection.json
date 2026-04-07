@@ -150,14 +150,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9091/foos/1",
+          "raw": "localhost:9091/foos/12",
           "host": [
             "localhost"
           ],
           "port": "9091",
           "path": [
             "foos",
-            "1"
+            "12"
           ]
         }
       },
@@ -179,14 +179,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:9091/foos/1",
+          "raw": "localhost:9091/foos/12",
           "host": [
             "localhost"
           ],
           "port": "9091",
           "path": [
             "foos",
-            "1"
+            "12"
           ]
         }
       },

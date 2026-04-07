@@ -167,15 +167,15 @@ You'll receive a response similar to below:
 Use the generated tokens as the value of the Bearer in the Authorization header as follows:
 
 ```bash
-curl http://localhost:9091/foos/1 -H "Authorization: Bearer ACCESS_TOKEN_HERE"
+curl http://localhost:9091/foos/12 -H "Authorization: Bearer ACCESS_TOKEN_HERE"
 ```
 
 The response will be:
 
 ```json
 {
-    "id": 68,
-    "name": "rRun"
+    "id": 144,
+    "name": "Name is 12"
 }
 ```
 
