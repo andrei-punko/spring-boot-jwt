@@ -1,0 +1,320 @@
+{
+  "info": {
+    "_postman_id": "a4e1b082-af22-4d32-8a13-9174d8f5dd98",
+    "name": "JWT server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1701433"
+  },
+  "item": [
+    {
+      "name": "Get admin Auth Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();\r",
+              "pm.collectionVariables.set(\"admin_access_token\", jsonData.access_token);\r",
+              "pm.collectionVariables.set(\"admin_refresh_token\", jsonData.refresh_token);\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{secret}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{client}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "localhost:9090/oauth/token?grant_type=password&username={{admin_username}}&password={{admin_password}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "9090",
+          "path": [
+            "oauth",
+            "token"
+          ],
+          "query": [
+            {
+              "key": "grant_type",
+              "value": "password"
+            },
+            {
+              "key": "username",
+              "value": "{{admin_username}}"
+            },
+            {
+              "key": "password",
+              "value": "{{admin_password}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user Auth Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();\r",
+              "pm.collectionVariables.set(\"user_access_token\", jsonData.access_token);\r",
+              "pm.collectionVariables.set(\"user_refresh_token\", jsonData.refresh_token);\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{secret}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{client}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "localhost:9090/oauth/token?grant_type=password&username={{user_username}}&password={{user_password}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "9090",
+          "path": [
+            "oauth",
+            "token"
+          ],
+          "query": [
+            {
+              "key": "grant_type",
+              "value": "password"
+            },
+            {
+              "key": "username",
+              "value": "{{user_username}}"
+            },
+            {
+              "key": "password",
+              "value": "{{user_password}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get foos using admin token",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9091/foos/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9091",
+          "path": [
+            "foos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get foos using user token",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{user_access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:9091/foos/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "9091",
+          "path": [
+            "foos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get cities using admin token",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9091/cities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9091",
+          "path": [
+            "cities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get cities using user token",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{user_access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9091/cities",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9091",
+          "path": [
+            "cities"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "client",
+      "value": ""
+    },
+    {
+      "key": "secret",
+      "value": ""
+    },
+    {
+      "key": "admin_access_token",
+      "value": ""
+    },
+    {
+      "key": "admin_refresh_token",
+      "value": ""
+    },
+    {
+      "key": "user_access_token",
+      "value": ""
+    },
+    {
+      "key": "user_refresh_token",
+      "value": ""
+    },
+    {
+      "key": "admin_username",
+      "value": ""
+    },
+    {
+      "key": "admin_password",
+      "value": ""
+    },
+    {
+      "key": "user_username",
+      "value": ""
+    },
+    {
+      "key": "user_password",
+      "value": ""
+    }
+  ]
+}
