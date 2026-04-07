@@ -26,7 +26,7 @@
     docker build ./ -t oauth-service-app
     cd..
 
-## How to build Docker image with oauth-service application inside:
+## How to build Docker image with resource-service application inside:
 
     cd resource-server
     docker build ./ -t resource-service-app
